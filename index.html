@@ -161,7 +161,7 @@
             Con la bendición de nuestras familias, queremos compartir contigo el inicio de nuestra historia para siempre.
           </p>
 
-          <!-- Aviso Destacado: Mesa por WhatsApp al escanear QR -->
+          <!-- Aviso Destacado: Mesa por WhatsApp a tu llegada -->
           <div class="card-3d mt-5 rounded-2xl bg-gradient-to-r from-olive-600/10 via-champagne-100 to-champagne-200/50 border border-champagne-500/40 p-3.5 text-left flex items-start gap-3 shadow-sm">
             <div class="w-9 h-9 rounded-xl bg-olive-600 text-white flex items-center justify-center flex-shrink-0 text-base shadow-sm">
               📲
@@ -169,7 +169,7 @@
             <div>
               <p class="text-[10px] uppercase tracking-[0.18em] font-bold text-olive-700">Experiencia VIP en Puerta</p>
               <p class="text-xs text-stone-700 leading-snug mt-0.5">
-                Al llegar y escanear tu <strong>pase QR</strong>, recibirás tu <strong>número de mesa asignada por WhatsApp</strong> al instante.
+                Al escanear tu <strong>pase QR</strong>, <strong>tu mesa se asignará por WhatsApp a tu llegada</strong>.
               </p>
             </div>
           </div>
@@ -296,7 +296,7 @@
               </div>
               <h1 class="font-display font-extrabold text-2xl sm:text-3xl text-white">Panel Privado • Jorge &amp; Ostriberta</h1>
               <p class="text-sm text-slate-300 mt-1">
-                Lista en tiempo real. Al autorizar a un invitado en puerta, se abre WhatsApp con su <strong class="text-emerald-300">número de mesa asignada</strong>.
+                Lista en tiempo real (cupo: 10 personas). Al autorizar en puerta, se abre WhatsApp con su <strong class="text-emerald-300">número de mesa asignada</strong>.
               </p>
             </div>
             <button onclick="exitAdminPanel()" class="self-start px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-xs font-semibold text-slate-300 hover:text-white transition flex items-center gap-1.5 cursor-pointer flex-shrink-0">
@@ -308,7 +308,7 @@
           <div class="mt-6 grid grid-cols-3 gap-3">
             <div class="rounded-2xl bg-white/[0.04] border border-white/10 p-3.5 text-center">
               <p id="stat-total-guests" class="font-display font-extrabold text-2xl text-white">0</p>
-              <p class="text-[11px] text-slate-400 uppercase tracking-wider mt-0.5">Confirmados</p>
+              <p class="text-[11px] text-slate-400 uppercase tracking-wider mt-0.5">Registros</p>
             </div>
             <div class="rounded-2xl bg-white/[0.04] border border-emerald-500/25 p-3.5 text-center">
               <p id="stat-checked-in" class="font-display font-extrabold text-2xl text-emerald-400">0</p>
@@ -352,7 +352,7 @@
                 <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
               </svg>
             </div>
-            <p class="text-xs text-slate-400">Total de personas confirmadas: <strong id="stat-total-passes" class="text-emerald-300">0</strong></p>
+            <p class="text-xs text-slate-400">Personas confirmadas: <strong id="stat-total-passes" class="text-emerald-300">0</strong> / 10</p>
           </div>
 
           <div id="guest-list-container" class="space-y-3"></div>
@@ -411,7 +411,8 @@
         <form id="rsvp-form" onsubmit="handleRsvpSubmit(event)" class="mt-5 space-y-4">
           <div>
             <label for="rsvp-name" class="block text-xs font-semibold uppercase tracking-wider mb-1.5 opacity-85">Nombre completo *</label>
-            <input id="rsvp-name" type="text" required minlength="2" maxlength="60" placeholder="Ej. Mariana López" class="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all border bg-white border-champagne-200 focus:border-champagne-600 text-stone-800 placeholder-stone-400" />
+            <input id="rsvp-name" type="text" required minlength="2" maxlength="60" oninput="handleGuestNameInput()" placeholder="Escribe tu nombre tal como fuiste invitado" class="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all border bg-white border-champagne-200 focus:border-champagne-600 text-stone-800 placeholder-stone-400" />
+            <p id="rsvp-guest-match" class="hidden text-xs font-semibold text-olive-700 bg-olive-600/10 border border-olive-600/25 rounded-lg px-3 py-1.5 mt-2"></p>
           </div>
 
           <div>
@@ -434,7 +435,7 @@
               </select>
               <input id="rsvp-phone" type="tel" required minlength="7" maxlength="15" inputmode="numeric" placeholder="Número sin prefijo" class="flex-1 min-w-0 px-4 py-3 rounded-xl text-sm outline-none transition-all border bg-white border-champagne-200 focus:border-champagne-600 text-stone-800 placeholder-stone-400 font-mono" />
             </div>
-            <p class="text-[11px] opacity-75 mt-1">📲 Al llegar a la recepción te enviaremos tu mesa a este WhatsApp.</p>
+            <p class="text-[11px] opacity-75 mt-1">📲 Tu mesa se asignará por WhatsApp a tu llegada.</p>
           </div>
 
           <div>
@@ -445,7 +446,7 @@
               <button type="button" onclick="selectPasses(3)" data-pass="3" class="pass-opt py-2.5 rounded-xl font-bold text-sm border transition-all cursor-pointer">3</button>
               <button type="button" onclick="selectPasses(4)" data-pass="4" class="pass-opt py-2.5 rounded-xl font-bold text-sm border transition-all cursor-pointer">4</button>
             </div>
-            <input type="hidden" id="rsvp-passes" value="2" />
+            <input type="hidden" id="rsvp-passes" value="1" />
           </div>
 
           <div>
@@ -453,7 +454,7 @@
             <textarea id="rsvp-message" rows="2" maxlength="140" placeholder="¡Muchas felicidades! Ahí nos vemos..." class="w-full px-4 py-2.5 rounded-xl text-sm outline-none transition-all border bg-white border-champagne-200 focus:border-champagne-600 text-stone-800 placeholder-stone-400 resize-none"></textarea>
           </div>
 
-          <p id="rsvp-error" class="hidden text-xs font-semibold text-rose-500"></p>
+          <p id="rsvp-error" class="hidden text-xs font-semibold text-rose-600 bg-rose-50 border border-rose-200 rounded-lg px-3 py-2"></p>
 
           <button type="submit" class="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-champagne-600 to-champagne-500 hover:from-champagne-700 hover:to-champagne-600 text-white font-display font-bold text-sm tracking-wide transition-all active:scale-[0.98] cursor-pointer shadow-lg flex items-center justify-center gap-2">
             <span>Generar mi Pase Digital QR</span>
@@ -523,10 +524,10 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- LÓGICA DE LA APLICACIÓN (FIREBASE PRIVADO + PIN ANFITRIÓN)            -->
+  <!-- LÓGICA DE LA APLICACIÓN (LISTA CERRADA + ANTI-DUPLICADOS + FIREBASE)  -->
   <!-- ===================================================================== -->
   <script>
-    // 0. FIREBASE (Mismo proyecto gratuito de IA MAKERS, colección exclusiva para esta boda)
+    // 0. FIREBASE
     const firebaseConfig = {
       apiKey: "AIzaSyCspgWLY_Dzb82s6qjR7aIqlK2Njhq3Rs0",
       authDomain: "ia-makers-invitaciones.firebaseapp.com",
@@ -537,7 +538,15 @@
     };
 
     const FIRESTORE_COLLECTION = 'boda_jorge_ostriberta';
-    const ADMIN_PIN = '0812'; // PIN privado para el anfitrión (8 de diciembre)
+    const ADMIN_PIN = '0812';
+
+    // LISTA DE INVITADOS AUTORIZADOS Y PASES ASIGNADOS (TOTAL: 10 PERSONAS)
+    const AUTHORIZED_GUESTS = [
+      { name: 'María Cauich', maxPasses: 2 },
+      { name: 'Santiago Arjona', maxPasses: 3 },
+      { name: 'Chino Huerta', maxPasses: 1 },
+      { name: 'Piri Martinoli', maxPasses: 4 }
+    ];
 
     // 1. CONFIGURACIÓN DEL EVENTO
     const EVENT_CONFIG = {
@@ -551,17 +560,32 @@
       venue: 'Moon Palace Cancún',
       venueMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Moon+Palace+Canc%C3%BAn+Quintana+Roo',
       dressCode: 'Sin Código de Vestir',
-      hostWhatsapp: '529982145011', // Cambiar aquí por el WhatsApp del novio cuando terminen las pruebas
+      hostWhatsapp: '529982145011',
       itinerary: [
         { time: '8:00 PM', title: 'Ceremonia Religiosa', desc: 'Catedral de Cancún' },
-        { time: '9:30 PM', title: 'Recepción y Cena', desc: 'Moon Palace Cancún • Tu mesa llegará por WhatsApp al entrar' }
+        { time: '9:30 PM', title: 'Recepción y Cena', desc: 'Moon Palace Cancún • Tu mesa se asignará por WhatsApp a tu llegada' }
       ]
     };
 
     let db = null;
     let isCloudConnected = false;
     let isAdminUnlocked = false;
+    let currentAllowedPasses = 4;
     const guestsMap = new Map();
+
+    function normalizeText(str) {
+      return String(str)
+        .trim()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\s+/g, ' ');
+    }
+
+    function findAuthorizedGuest(inputName) {
+      const normalized = normalizeText(inputName);
+      return AUTHORIZED_GUESTS.find((g) => normalizeText(g.name) === normalized) || null;
+    }
 
     // 2. CONEXIÓN CON FIREBASE
     function initDatabase() {
@@ -671,13 +695,16 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 5. FLUJO RSVP + QR
+    // 5. FLUJO RSVP + VALIDACIÓN DE LISTA CERRADA Y PASES
     function openRsvpModal() {
       document.getElementById('rsvp-step-form').classList.remove('hidden');
       document.getElementById('rsvp-step-pass').classList.add('hidden');
       document.getElementById('rsvp-form').reset();
       document.getElementById('rsvp-error').classList.add('hidden');
-      selectPasses(2);
+      document.getElementById('rsvp-guest-match').classList.add('hidden');
+      currentAllowedPasses = 4;
+      updatePassButtonsLimit(4);
+      selectPasses(1);
 
       const modal = document.getElementById('rsvp-modal');
       modal.classList.remove('hidden');
@@ -693,10 +720,42 @@
       document.body.style.overflow = '';
     }
 
+    function handleGuestNameInput() {
+      const nameVal = document.getElementById('rsvp-name').value;
+      const matchEl = document.getElementById('rsvp-guest-match');
+      const authorized = findAuthorizedGuest(nameVal);
+
+      if (authorized) {
+        currentAllowedPasses = authorized.maxPasses;
+        matchEl.textContent = `✓ Invitación encontrada: ${authorized.name} (hasta ${authorized.maxPasses} ${authorized.maxPasses === 1 ? 'pase' : 'pases'})`;
+        matchEl.classList.remove('hidden');
+        updatePassButtonsLimit(authorized.maxPasses);
+        selectPasses(authorized.maxPasses);
+      } else {
+        currentAllowedPasses = 4;
+        matchEl.classList.add('hidden');
+        updatePassButtonsLimit(4);
+      }
+    }
+
+    function updatePassButtonsLimit(maxAllowed) {
+      document.querySelectorAll('.pass-opt').forEach((btn) => {
+        const val = Number(btn.getAttribute('data-pass'));
+        const isDisabled = val > maxAllowed;
+        btn.disabled = isDisabled;
+        if (isDisabled) {
+          btn.className = 'pass-opt py-2.5 rounded-xl font-bold text-sm border bg-stone-100 border-stone-200 text-stone-300 cursor-not-allowed';
+        }
+      });
+    }
+
     function selectPasses(count) {
+      if (count > currentAllowedPasses) return;
       document.getElementById('rsvp-passes').value = String(count);
       document.querySelectorAll('.pass-opt').forEach((btn) => {
-        const isSelected = Number(btn.getAttribute('data-pass')) === count;
+        const val = Number(btn.getAttribute('data-pass'));
+        if (val > currentAllowedPasses) return;
+        const isSelected = val === count;
         btn.className = `pass-opt py-2.5 rounded-xl font-bold text-sm border transition-all cursor-pointer ${
           isSelected ? 'bg-olive-600 border-olive-600 text-white' : 'bg-white border-champagne-200 text-stone-700 hover:border-champagne-500'
         }`;
@@ -713,32 +772,56 @@
 
     async function handleRsvpSubmit(event) {
       event.preventDefault();
-      const guestName = document.getElementById('rsvp-name').value.trim();
+      const guestNameInput = document.getElementById('rsvp-name').value.trim();
       const countryCode = document.getElementById('rsvp-country-code').value;
       const phone = document.getElementById('rsvp-phone').value.replace(/\D/g, '');
       const passesCount = parseInt(document.getElementById('rsvp-passes').value, 10) || 1;
       const message = document.getElementById('rsvp-message').value.trim();
       const errEl = document.getElementById('rsvp-error');
 
-      if (guestName.length < 2) {
-        errEl.textContent = 'Por favor ingresa tu nombre completo.';
+      // 1. Validar que esté en la lista de invitados autorizados
+      const authorized = findAuthorizedGuest(guestNameInput);
+      if (!authorized) {
+        errEl.textContent = 'Tu nombre no aparece en la lista de invitados. Verifica que esté escrito correctamente.';
         errEl.classList.remove('hidden');
         return;
       }
+
+      // 2. Validar que no exceda sus pases asignados
+      if (passesCount > authorized.maxPasses) {
+        errEl.textContent = `A nombre de ${authorized.name} corresponden máximo ${authorized.maxPasses} ${authorized.maxPasses === 1 ? 'pase' : 'pases'}.`;
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      // 3. Validar teléfono
       if (phone.length < 7 || phone.length > 15) {
         errEl.textContent = 'Ingresa un número de WhatsApp válido (7 a 15 dígitos).';
         errEl.classList.remove('hidden');
         return;
       }
+
+      // 4. Bloqueo anti-duplicados por nombre
+      const normalizedInput = normalizeText(authorized.name);
+      const alreadyExists = Array.from(guestsMap.values()).some(
+        (g) => normalizeText(g.name) === normalizedInput
+      );
+
+      if (alreadyExists) {
+        errEl.textContent = 'Este nombre ya está registrado. Si perdiste tu pase QR, solicítalo a los anfitriones.';
+        errEl.classList.remove('hidden');
+        return;
+      }
+
       errEl.classList.add('hidden');
 
       const passId = generateUniquePassId();
-      const assignedTable = `Mesa ${Math.floor(Math.random() * 15) + 1}`;
+      const assignedTable = `Mesa ${Math.floor(Math.random() * 5) + 1}`;
       const nowTime = new Date().toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
 
       const newGuest = {
         passId,
-        name: guestName,
+        name: authorized.name,
         countryCode,
         phone,
         passes: passesCount,
@@ -770,7 +853,7 @@
       document.getElementById('pass-guest-name').textContent = guest.name;
       document.getElementById('pass-guest-count').textContent = `${guest.passes} ${guest.passes === 1 ? 'Persona' : 'Personas'}`;
       document.getElementById('pass-code-text').textContent = guest.passId;
-      document.getElementById('pass-guest-extra').textContent = `📲 +${dial} ${guest.phone} • Mesa al entrar`;
+      document.getElementById('pass-guest-extra').textContent = `📲 +${dial} ${guest.phone} • Mesa por WhatsApp a tu llegada`;
 
       const waMsg = `¡Hola! Confirmo mi asistencia a la *${EVENT_CONFIG.title}*.\n\n` +
         `\u{1F464} Nombre: ${guest.name}\n` +
@@ -996,7 +1079,7 @@
                 <h3 class="font-display font-extrabold text-lg text-emerald-300">ACCESO AUTORIZADO</h3>
                 <p class="text-base font-bold text-white mt-0.5">${escapeHtml(guest.name)}</p>
                 <div class="flex flex-wrap items-center gap-2 mt-1.5 text-xs">
-                  <span class="px-2.5 py-0.5 rounded-full bg-emerald-400/20 text-emerald-200 font-bold border border-emerald-400/30">🎟️ ${guest.passes} Personas</span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-emerald-400/20 text-emerald-200 font-bold border border-emerald-400/30">🎟️ ${guest.passes} ${guest.passes === 1 ? 'Persona' : 'Personas'}</span>
                   <span class="px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-200 font-bold border border-amber-400/35">🍽️ ${guest.table}</span>
                   <span class="text-emerald-100/80">${checkInTime}</span>
                 </div>
@@ -1040,7 +1123,6 @@
       setInterval(updateCountdown, 1000);
       initDatabase();
 
-      // Si el anfitrión entra con ?admin=true en la URL, abre directo el modal del PIN
       if (new URLSearchParams(window.location.search).get('admin') === 'true') {
         openAdminLoginModal();
       }
