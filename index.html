@@ -891,7 +891,7 @@
       qrContainer.innerHTML = '';
       if (typeof QRCode !== 'undefined') {
         new QRCode(qrContainer, {
-          text: passUrl,
+          text: EVENT_CONFIG.photoAlbumUrl,
           width: 150,
           height: 150,
           colorDark: '#0A0F24',
@@ -900,7 +900,7 @@
         });
       }
     }
-
+          correctLevel: QRCode.CorrectLevel.M
     function inspectGuestPass(passId) {
       const guest = guestsMap.get(passId);
       if (!guest) return;
